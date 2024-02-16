@@ -168,7 +168,7 @@ class Product extends Model
      * @return LengthAwarePaginator The paginated list of products.
 
      */
-    public function getProductWithQuery(array $options = [], string $searchType = 'sql'): LengthAwarePaginator
+    public function getProductWithQuery(array $options = []): LengthAwarePaginator
     {
 
 
@@ -488,21 +488,20 @@ class Product extends Model
         return $products;
     }
 
-    public function searchProductElastic(array $searchData)
+    public function searchProductElastic(string $searchName)
     {
-        extract($searchData);
-        return Product::search("product_name:\"$searchName\"", function (Client $client, Search $body) use ($searchData) {
+        return Product::search("product_name:\"$searchName\"", function (Client $client, Search $body) {
             $body->setSize(self::PER_PAGE_CLIENT);
 
-            $betweenDate = formatBetweenQuery(
-                data_get($betweenDate, 'field'),
-                data_get($betweenDate, 'from'),
-                data_get($betweenDate, 'to')
-            );
+            // $betweenDate = formatBetweenQuery(
+            //     data_get($betweenDate, 'field'),
+            //     data_get($betweenDate, 'from'),
+            //     data_get($betweenDate, 'to')
+            // );
 
-            if ($betweenDate) {
-                $body->addQuery($betweenDate);
-            }
+            // if ($betweenDate) {
+            //     $body->addQuery($betweenDate);
+            // }
 
             return $client->search([
                 'index' => (new Product())->searchableAs(),

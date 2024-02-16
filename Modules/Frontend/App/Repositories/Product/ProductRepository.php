@@ -63,7 +63,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return $this->model->getProductWithQuery(
             $defaultOptions,
-            $request->searchType
         );
     }
 

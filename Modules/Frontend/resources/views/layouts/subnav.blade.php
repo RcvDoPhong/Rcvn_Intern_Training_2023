@@ -26,17 +26,23 @@
                 </nav>
             </div>
             <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
-                <form class="custom-search-input" method="GET" id="searchInput"
-                    action="{{ route('frontend.category.index') }}">
+                <form class="custom-search-input" method="POST" id="searchInput" action="#">
                     @csrf
                     <input name="searchName" value="{{ $searchName }}" type="text"
+                        placeholder="Search over 1.000 products" onkeyup="search.searchNavbar(this)" />
+                    <button type="submit"><i class="header-icon_like_custom" style="margin-right: 2rem !important"
+                        onclick="search.searchElastic(this, event)"></i></button>
+                    <button type="submit"><i class="header-icon_search_custom"
+                        onclick="search.searchSQL(this, event)"></i></button>
+                    <div id="search-suggest" class="bg-white d-none">
+                    </div>
+                    {{-- <input name="searchName" value="{{ $searchName }}" type="text"
                         placeholder="Search over 1.000 products" onkeyup="search.searchNavbar(this)" />
                     <button type="submit" name="searchType" value="elastic"><i class="header-icon_like_custom"
                             style="margin-right: 2rem !important"></i></button>
                     <button type="submit" name="searchType" value="sql"><i
                             class="header-icon_search_custom"></i></button>
-                    <div id="search-suggest" class="bg-white d-none">
-                    </div>
+                    <div id="search-suggest" class="bg-white d-none"> --}}
                 </form>
             </div>
             <div class="col-xl-3 col-lg-2 col-md-3">
