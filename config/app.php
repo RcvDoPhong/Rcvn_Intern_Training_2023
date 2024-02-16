@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-use Modules\Frontend\app\Providers\FrontendServiceProvider;
+use Modules\Frontend\App\Providers\FrontendServiceProvider;
 
 return [
 

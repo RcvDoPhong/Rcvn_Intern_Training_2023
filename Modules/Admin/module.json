@@ -5,7 +5,7 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\Admin\\app\\Providers\\AdminServiceProvider"
+        "Modules\\Admin\\App\\Providers\\AdminServiceProvider"
     ],
     "files": []
 }

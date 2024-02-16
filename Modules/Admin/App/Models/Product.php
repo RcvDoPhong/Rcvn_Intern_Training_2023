@@ -15,7 +15,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\app\Observers\ProductObserver;
+use Modules\Admin\App\Observers\ProductObserver;
 use Modules\Admin\Database\factories\ProductFactory;
 use ONGR\ElasticsearchDSL\Aggregation\Metric\MinAggregation;
 

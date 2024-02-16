@@ -7,7 +7,7 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Modules\Admin\App\Models\Role;
-use Modules\Admin\app\Observers\RoleObserver;
+use Modules\Admin\App\Observers\RoleObserver;
 
 class EventServiceProvider extends ServiceProvider
 {

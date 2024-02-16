@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\app\Observers;
+namespace Modules\Admin\App\Observers;
 
 use Laravel\Scout\ModelObserver;
 use Modules\Admin\App\Models\Category;

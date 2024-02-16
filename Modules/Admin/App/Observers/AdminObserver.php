@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Admin\app\Observers;
+namespace Modules\Admin\App\Observers;
 
-use Modules\Admin\app\Models\Admin;
+use Modules\Admin\App\Models\Admin;
 
 class AdminObserver
 {
