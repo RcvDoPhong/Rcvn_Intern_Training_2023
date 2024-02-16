@@ -1,0 +1,74 @@
+version: "3.0"
+
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: devops/nginx/Dockerfile
+    container_name: intern-nginx
+    volumes:
+      - ./:/var/www
+      - ./devops/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./devops/nginx/log:/var/log/nginx
+    ports:
+      - "8080:80"
+    networks:
+      - intern-net
+    depends_on:
+      - phpfpm
+
+  phpfpm:
+    build:
+      context: .
+      dockerfile: devops/phpfpm/Dockerfile
+    container_name: intern-phpfpm
+    ports:
+      - "9000:9000"
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./devops/phpfpm/custom-php.ini:/usr/local/etc/php/custom-php.ini
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    networks:
+      - intern-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: intern-mysql
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./src/mysql/data:/var/lib/mysql
+      - ./src/mysql-master/conf.d:/etc/mysql/conf.d/
+    environment:
+      MYSQL_DATABASE: g_one_intern
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - intern-net
+
+  adminer:
+    image: adminer
+    container_name: intern-adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - intern-net
+    depends_on:
+      - mysql
+
+networks:
+  intern-net:
+    driver: bridge
+volumes:
+  dbdata:
+    driver: local

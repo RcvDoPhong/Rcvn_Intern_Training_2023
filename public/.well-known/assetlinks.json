@@ -1,0 +1,12 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "laravel_ecom_learning_rcv.tw",
+            "sha256_cert_fingerprints": [
+                "57:34:E9:5B:57:72:6F:18:25:3A:9D:C8:5E:52:7B:BA:9F:48:16:B6:04:7E:57:0D:AE:55:1D:00:90:27:9E:53"
+            ]
+        }
+    }
+]

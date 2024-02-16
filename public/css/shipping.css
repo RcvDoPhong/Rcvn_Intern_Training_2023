@@ -1,0 +1,26 @@
+.shipping-card {
+    padding: 10px;
+    position: relative;
+}
+
+.shipping-card:hover {
+    transform: scale(1.02);
+
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.shipping-ribbon {
+    width: 60px;
+    font-size: 14px;
+    padding: 4px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    text-align: center;
+    font-size: 8px;
+    border-radius: 20px;
+  
+    background-color: #35addc;
+    color: white;
+}

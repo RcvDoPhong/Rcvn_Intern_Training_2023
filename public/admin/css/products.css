@@ -1,0 +1,8 @@
+.img-thumbnail {
+    padding: 0 200px;
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}
