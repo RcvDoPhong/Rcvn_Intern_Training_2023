@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Frontend\Database\factories\ProductFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Laravel\Scout\Searchable;
+use Elastic\ScoutDriverPlus\Searchable;
+use Elastic\ScoutDriverPlus\Support\Query;
 use Modules\Admin\App\Constructs\Constants;
-use ONGR\ElasticsearchDSL\Search;
 
 class Product extends Model
 {
@@ -168,11 +168,13 @@ class Product extends Model
      * @return LengthAwarePaginator The paginated list of products.
 
      */
-    public function getProductWithQuery(array $options = []): LengthAwarePaginator
+    public function getProductWithQuerySQL(array $options = []): array
     {
 
 
         extract($options);
+
+        $startTime = microtime(true);
         $query = self::query();
 
         $query->whereNot('status', 0);
@@ -243,8 +245,96 @@ class Product extends Model
         $query->orderBy('stock', 'desc');
 
         $products = $query->with('reviews')->paginate($paginate);
+        $endTime = microtime(true);
+        $executionTime = round($endTime - $startTime, 5); // end of execution time
 
-        return $this->_transformRatingProduct($products);
+        return [
+            'executionTime' => $executionTime,
+            'data' => $this->_transformRatingProduct($products), //LengthAwarePaginator$products->models()
+        ];
+    }
+
+    public function getProductWithQueryElastic(array $searchDataArr = []): array
+    {
+        extract($searchDataArr);
+
+        $startTime = microtime(true);
+        $query = Query::bool()->must(
+            Query::matchPhrase()
+                ->field('product_name')
+                ->query($searchName)
+        )->must(
+            Query::term()
+                ->field('parent_product_id')
+                ->value(0)
+        );
+
+        if (!empty($categoryIdArr)) {
+            $query->must(
+                Query::terms()
+                    ->field('category_id')
+                    ->values($categoryIdArr)
+            );
+        }
+
+        if (!empty($brandIdArr)) {
+            $query->must(
+                Query::terms()
+                    ->field('brand_id')
+                    ->values($brandIdArr)
+            );
+        }
+
+        // $query->should([
+        //     'match' => [
+        //         'sale_type' => 1
+        //     ],
+        //     'range' => [
+        //     ]
+        // ]);
+        $query->must(
+            Query::range()
+            ->field('base_price')
+            ->gte($minPrice)
+            ->lte($maxPrice)
+        );
+
+        $query = self::searchQuery($query);
+
+        if ($sortName === 'price') {
+            $query->sort('base_price', 'asc');
+        }
+        if ($sortName === 'price-desc') { // price-desc
+            $query->sort('base_price', 'desc');
+        }
+        if ($sortName === 'date') {
+            $query->sort('created_at', 'desc');
+        }
+        if ($sortName === 'name') {
+            $query->sort('product_name', 'asc');
+        }
+        if ($sortName === 'name-desc') {
+            $query->sort('product_name', 'desc');
+        }
+        $query->sort('status', 'asc');
+        $query->sort('stock', 'desc');
+        $products = $query->paginate($paginate);
+
+        $endTime = microtime(true);
+        $executionTime = round($endTime - $startTime, 5); // end of execution time
+
+        $data = $products->models()->transform(function ($product) {
+            $avgRating = ceil(collect($product->reviews)->avg("rating"));
+            $product->rating = $avgRating ?? 0;
+            return $product;
+        });
+
+        $data->links = $products->links();
+
+        return [
+            'executionTime' => $executionTime,
+            'data' => $data
+        ];
     }
 
 
@@ -486,29 +576,5 @@ class Product extends Model
             return $product;
         });
         return $products;
-    }
-
-    public function searchProductElastic(string $searchName)
-    {
-        return Product::search("product_name:\"$searchName\"", function (Client $client, Search $body) {
-            $body->setSize(self::PER_PAGE_CLIENT);
-
-            // $betweenDate = formatBetweenQuery(
-            //     data_get($betweenDate, 'field'),
-            //     data_get($betweenDate, 'from'),
-            //     data_get($betweenDate, 'to')
-            // );
-
-            // if ($betweenDate) {
-            //     $body->addQuery($betweenDate);
-            // }
-
-            return $client->search([
-                'index' => (new Product())->searchableAs(),
-                'body' => $body->toArray()
-            ])->asArray();
-        })
-            ->orderBy('product_id', 'asc')
-            ->where('is_delete', Constants::NOT_DESTROY);
     }
 }

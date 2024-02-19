@@ -3,7 +3,7 @@
 namespace Modules\Frontend\database\seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Admin\Database\Seeders\AdminSeeder;
+use Modules\Admin\database\seeders\AdminSeeder;
 use Modules\Admin\database\seeders\BrandSeeder;
 use Modules\Admin\database\seeders\CategorySeeder;
 use Modules\Admin\database\seeders\CitySeeder;

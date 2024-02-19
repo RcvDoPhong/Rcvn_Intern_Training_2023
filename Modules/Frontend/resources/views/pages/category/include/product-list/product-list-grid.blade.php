@@ -2,7 +2,6 @@
 <div class="row small-gutters">
 
     @foreach ($products as $product)
-    
         <div class="col-6 col-md-4 ">
             @component('frontend::components.product', [
                 'product' => $product,

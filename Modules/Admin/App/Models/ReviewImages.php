@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\ReviewImagesFactory;
+use Modules\Admin\database\factories\ReviewImagesFactory;
 
 class ReviewImages extends Model
 {
@@ -18,7 +18,7 @@ class ReviewImages extends Model
     protected $table = 'review_images';
 
     protected $primaryKey = 'review_image_id';
-    
+
     protected static function newFactory(): ReviewImagesFactory
     {
         //return ReviewImagesFactory::new();

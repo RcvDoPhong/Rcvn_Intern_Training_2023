@@ -5,7 +5,7 @@ namespace Modules\Admin\App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Modules\Admin\Database\factories\OptionProductFactory;
+use Modules\Admin\database\factories\OptionProductFactory;
 
 class OptionProduct extends Model
 {
@@ -22,7 +22,7 @@ class OptionProduct extends Model
         'production_id',
         'option_id',
     ];
-    
+
     protected static function newFactory(): OptionProductFactory
     {
         //return OptionProductFactory::new();

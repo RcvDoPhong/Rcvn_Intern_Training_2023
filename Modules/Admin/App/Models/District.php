@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\DistrictFactory;
+use Modules\Admin\database\factories\DistrictFactory;
 
 class District extends Model
 {

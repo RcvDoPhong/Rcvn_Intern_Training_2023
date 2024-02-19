@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\CouponFactory;
+use Modules\Admin\database\factories\CouponFactory;
 
 class Coupon extends Model
 {
@@ -27,7 +27,7 @@ class Coupon extends Model
         'expire_at',
         'updated_by'
     ];
-    
+
     protected static function newFactory(): CouponFactory
     {
         return CouponFactory::new();

@@ -60,7 +60,8 @@ class CategoryController extends Controller
         return view(
             'frontend::pages.category.index',
             [
-                'products' => $products,
+                'products' => $products['data'],
+                'executionTime' => $products['executionTime'],
                 'childCategories' => $categories['child'],
                 'parentCategories' => $categories['parent'],
                 'brands' => $brands,
@@ -73,7 +74,6 @@ class CategoryController extends Controller
 
     public function queryProduct(Request $request)
     {
-
         $validate = Validator::make([
             "minPrice" => $request->minPrice[0]
                 ?? null,
@@ -95,10 +95,18 @@ class CategoryController extends Controller
                 $request
             );
 
+        $links = null;
+        if (isset($products['data']->links)) {
+            $links = $products['data']->links;
+        } else {
+            $links = $products['data']->links();
+        }
 
         return [
-            "view" => $this->productRepo->changeViewMode($request, $products),
-            "pagination" => $products->links()->toHtml(),
+            'searchType' => $request->searchType,
+            "view" => $this->productRepo->changeViewMode($request, $products['data']),
+            'executionTime' => $products['executionTime'],
+            "pagination" => $links->toHtml(),
         ];
     }
 }

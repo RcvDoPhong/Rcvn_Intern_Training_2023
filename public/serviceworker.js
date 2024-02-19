@@ -1,5 +1,6 @@
+self.importScripts("/plugins/localforage/localforage-1.10.0.min.js");
+
 const staticCacheName = "pwa-v" + new Date().getTime();
-//const staticCacheName = "pwa-v1";
 const filesToCache = [
     "/offline-page/offline-page.html",
     "/image/icons/icon-72x72.png",
@@ -111,3 +112,29 @@ self.addEventListener("notificationclick", (event) => {
             })
     );
 });
+
+//background sync api:
+self.addEventListener("sync", (event) => {
+    if (event.tag === "add-cart-sync") {
+        event.waitUntil(async () => {
+            const postId = event.tagParams.postId; // Extract data from tagParams
+
+            try {
+                const response = await fetch(`/api/like/${postId}`);
+                if (!response.ok) {
+                    throw new Error("Failed to like post");
+                }
+                console.log("Post liked successfully (offline)!");
+            } catch (error) {
+                console.error("Liking post failed (offline):", error);
+                // Handle further attempts or error notifications
+            }
+        });
+    }
+});
+
+function syncData() {
+    // Implement your data synchronization logic here
+    console.log("Syncing data...");
+    // Example: Fetch data from IndexedDB and send to server
+}

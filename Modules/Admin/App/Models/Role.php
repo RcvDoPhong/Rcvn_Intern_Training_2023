@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
 use Modules\Admin\App\Constructs\Constants;
 use Modules\Admin\App\Models\Permission;
-use Modules\Admin\App\Observers\RoleObserver;
+use Modules\Admin\app\Observers\RoleObserver;
 use Modules\Admin\database\factories\RoleFactory;
 use ONGR\ElasticsearchDSL\Search;
 

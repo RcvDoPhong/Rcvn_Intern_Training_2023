@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\ShippingFactory;
+use Modules\Admin\database\factories\ShippingFactory;
 
 class Shipping extends Model
 {

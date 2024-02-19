@@ -30,16 +30,6 @@ class commandtest extends Command
      */
     public function handle()
     {
-        foreach(Product::all() as $product) {
-            $product->searchable();
-        }
-
-        foreach(Role::all() as $role) {
-            $role->searchable();
-        }
-
-        foreach(Brand::all() as $brand) {
-            $brand->searchable();
-        }
+        // $test = config('app.')
     }
 }

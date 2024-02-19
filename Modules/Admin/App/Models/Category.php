@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Laravel\Scout\Searchable;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\CategoryFactory;
+use Modules\Admin\database\factories\CategoryFactory;
 
 class Category extends Model
 {

@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\CityFactory;
+use Modules\Admin\database\factories\CityFactory;
 
 class City extends Model
 {

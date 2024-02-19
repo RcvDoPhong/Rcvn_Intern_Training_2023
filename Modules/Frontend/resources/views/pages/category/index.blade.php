@@ -8,13 +8,15 @@
 
             @include('frontend::pages.category.include.side-menu')
 
-            <div class="col-lg-9" id="product-list-container">
+            <div class="col-lg-9">
                 @if ($executionTime)
                     <div>
-                        <h2>Query Time: {{ $executionTime }}</h2>
+                        <h2>Query Time: <span id="execution-time">{{ $executionTime }}</span></h2>
                     </div>
                 @endif
-                @include('frontend::pages.category.include.product-list.product-list-grid')
+                <div id="product-list-container">
+                    @include('frontend::pages.category.include.product-list.product-list-grid')
+                </div>
             </div>
         </div>
     </div>

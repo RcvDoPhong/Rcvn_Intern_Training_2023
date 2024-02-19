@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.1",
         "babenkoivan/elastic-migrations": "^3.4",
+        "babenkoivan/elastic-scout-driver": "^3.1",
+        "babenkoivan/elastic-scout-driver-plus": "^4.7",
         "elasticsearch/elasticsearch": "^8.12",
         "guzzlehttp/guzzle": "^7.2",
         "handcraftedinthealps/elasticsearch-dsl": "^8.0",
@@ -15,7 +17,6 @@
         "laravel/sanctum": "^3.3",
         "laravel/scout": "^10.8",
         "laravel/tinker": "^2.8",
-        "matchish/laravel-scout-elasticsearch": "^7.5",
         "nwidart/laravel-modules": "^10.0",
         "propaganistas/laravel-phone": "^5.1",
         "tightenco/ziggy": "^1.8"

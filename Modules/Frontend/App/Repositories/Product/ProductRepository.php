@@ -49,7 +49,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
      */
     public function getProductWithQuery(
         Request $request
-    ): LengthAwarePaginator {
+    ): array { // old: LengthAwarePaginator
         $defaultOptions = [
             "paginate" => 9,
             'categoryIdArr' => $request->category,
@@ -61,12 +61,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             'ratingArr' => $request->rating,
         ];
 
-        return $this->model->getProductWithQuery(
-            $defaultOptions,
-        );
+        if ($request->searchType === 'sql') {
+            return $this->model->getProductWithQuerySQL(
+                $defaultOptions
+            );
+        }
+
+        return $this->model->getProductWithQueryElastic($defaultOptions);
     }
 
-    public function changeViewMode(Request $request, LengthAwarePaginator $products): string
+    public function changeViewMode(Request $request, LengthAwarePaginator|Collection $products, int $queryTime = 0): string
     {
 
         $routeViewName = $request->currentView === "grid"

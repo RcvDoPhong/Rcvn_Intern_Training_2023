@@ -12,7 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\BrandFactory;
+use Modules\Admin\database\factories\BrandFactory;
 
 class Brand extends Model
 {

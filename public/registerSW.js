@@ -9,7 +9,7 @@ if ("serviceWorker" in navigator) {
                 "Laravel PWA: ServiceWorker registration successful with scope: ",
                 registration.scope
             );
-
+            triggerBackgroundSync();
             initPush();
         })
 
@@ -113,4 +113,27 @@ function storePushSubscription(pushSubscription) {
         .catch((err) => {
             console.log(err);
         });
+}
+
+
+
+function triggerBackgroundSync() {
+    if ("SyncManager" in window) {
+        navigator.serviceWorker.ready
+            .then((registration) => {
+                console.log("sync data registered");
+                return registration.sync.register("syncData");
+            })
+            .catch((error) => {
+                console.error("Background sync registration failed:", error);
+            });
+    }
+
+    // verify the background sync
+    navigator.serviceWorker.ready.then((registration) => {
+        registration.sync.getTags().then((tags) => {
+            if (tags.includes("syncData"))
+                console.log("Messages sync already requested");
+        });
+    });
 }

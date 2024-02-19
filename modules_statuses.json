@@ -1,5 +1,7 @@
 {
     "Admin": true,
     "Frontend": true,
-    "Test": true
+    "Test": true,
+    "DataSyncController": true,
+    "Controller": true
 }

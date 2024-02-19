@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\OrderFactory;
+use Modules\Admin\database\factories\OrderFactory;
 
 class Order extends Model
 {

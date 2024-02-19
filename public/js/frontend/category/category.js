@@ -25,7 +25,7 @@ const productView = {
         return urlParams.get(name);
     },
 
-    queryProduct: function (result, sortName = null, page, searchName) {
+    queryProduct: function (result, sortName = null, page, searchName, searchType = 'sql') {
         productView.removeError();
         $.get(
             route("frontend.category.query-product"),
@@ -33,6 +33,7 @@ const productView = {
                 ...result,
                 sortName,
                 searchName,
+                searchType,
                 page,
                 currentView: productView.currentView,
             },
@@ -54,6 +55,7 @@ const productView = {
                     }
                 } else {
                     productView.makeProductView(response.view);
+                    $("#execution-time").html(response.executionTime);
                     productView.changePagination(response.pagination);
                 }
             }
@@ -75,6 +77,7 @@ $(document).ready(function () {
         e.preventDefault();
         const query = $("#category-form").serialize();
         const searchName = productView.getQueryParams("searchName");
+        const searchType = productView.getQueryParams("searchType");
 
         // Parse the query
         const params = new URLSearchParams(query);
@@ -92,7 +95,8 @@ $(document).ready(function () {
             result,
             productView.currentSortValue,
             1,
-            searchName
+            searchName,
+            searchType
         );
     });
 
@@ -114,12 +118,14 @@ $(document).ready(function () {
         const page = $(this).attr("href").split("page=")[1];
         productView.currentPage = page;
         const searchName = productView.getQueryParams("searchName");
+        const searchType = productView.getQueryParams("searchType");
 
         productView.queryProduct(
             productView.currentQueryResult,
             productView.currentSortValue,
             page,
-            searchName
+            searchName,
+            searchType
         );
         $("html, body").animate({ scrollTop: 100 }, "fast");
     });

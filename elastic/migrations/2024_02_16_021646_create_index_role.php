@@ -13,7 +13,7 @@ final class CreateIndexRole implements MigrationInterface
      */
     public function up(): void
     {
-        Index::create('index-roles', function (Mapping $mapping, Settings $settings) {
+        Index::create('roles', function (Mapping $mapping, Settings $settings) {
             $mapping->unsigned_long('role_id');
             $mapping->text('role_name', ['boost' => 2]);
             $mapping->byte('is_delete');
@@ -21,8 +21,6 @@ final class CreateIndexRole implements MigrationInterface
             $mapping->date('updated_at');
             $mapping->unsigned_long('updated_by');
         });
-
-        Index::putAlias('index-roles', 'roles');
     }
 
     /**
@@ -30,6 +28,6 @@ final class CreateIndexRole implements MigrationInterface
      */
     public function down(): void
     {
-        Index::dropIfExists('index-roles');
+        Index::dropIfExists('roles');
     }
 }

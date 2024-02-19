@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\PermissionFactory;
+use Modules\Admin\database\factories\PermissionFactory;
 
 class Permission extends Model
 {

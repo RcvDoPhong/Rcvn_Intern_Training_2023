@@ -11,7 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Scout\Searchable;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\AdminFactory;
+use Modules\Admin\database\factories\AdminFactory;
 use ONGR\ElasticsearchDSL\Aggregation\Metric\MinAggregation;
 use ONGR\ElasticsearchDSL\Query\FullText\MatchQuery;
 use ONGR\ElasticsearchDSL\Search;

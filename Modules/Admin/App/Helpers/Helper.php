@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use Elastic\Elasticsearch\Client;
+use Elastic\ScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -307,24 +308,25 @@ if (!function_exists('searchQueryString')) {
         array $betweenDate = [],
         int $isDelete = Constants::NOT_DESTROY
     ) {
-        return $model::search($queryString, function (Client $client, Search $body) use ($betweenDate, $model) {
-            $body->setSize(Constants::PER_PAGE);
+        /* Old method using Laravel Scout Elasticsearch */
+        // return $model::search($queryString, function (Client $client, Search $body) use ($betweenDate, $model) {
+        //     $body->setSize(Constants::PER_PAGE);
 
-            $betweenDate = formatBetweenQuery(
-                data_get($betweenDate, 'field'),
-                data_get($betweenDate, 'from'),
-                data_get($betweenDate, 'to')
-            );
+        //     $betweenDate = formatBetweenQuery(
+        //         data_get($betweenDate, 'field'),
+        //         data_get($betweenDate, 'from'),
+        //         data_get($betweenDate, 'to')
+        //     );
 
-            if ($betweenDate) {
-                $body->addQuery($betweenDate);
-            }
+        //     if ($betweenDate) {
+        //         $body->addQuery($betweenDate);
+        //     }
 
-            return $client->search([
-                'index' => $model->searchableAs(),
-                'body' => $body->toArray()
-            ])->asArray();
-        })->where('is_delete', $isDelete);
+        //     return $client->search([
+        //         'index' => $model->searchableAs(),
+        //         'body' => $body->toArray()
+        //     ])->asArray();
+        // })->where('is_delete', $isDelete);
     }
 }
 

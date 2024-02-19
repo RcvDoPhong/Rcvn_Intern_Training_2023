@@ -11,29 +11,42 @@ const cartDisplay = {
             data: {
                 product,
             },
-            success: function (response) {
-                if (response.data.status === 400) {
+            success: async function (response) {
+                try {
+                    if (response.data.status === 400) {
+                        sweet.sweetAlertDisplay(
+                            "The product is out of stock",
+                            response.error,
+                            "error",
+                            3000
+                        );
+                    } else {
+                        // Handle success - maybe show a success message
+                        if (!$("#add_quantity").val()) {
+                            sweet.sweetAlertDisplay(
+                                "Product added to cart",
+                                "add successfully",
+                                "success",
+                                1000
+                            );
+                        }
+                        const { data, sumPrice } = response;
+                        cartDisplay.updateCartUI(data, sumPrice);
+                        if (window.location.pathname === "/frontend/cart") {
+                            tableCart.updateCartTable();
+                        }
+                    }
+                } catch (error) {
                     sweet.sweetAlertDisplay(
-                        "The product is out of stock",
-                        response.error,
-                        "error",
+                        "Waiting for online",
+                        "Your're currently offline, we will try to add to cart later for you",
+                        "info",
                         3000
                     );
-                } else {
-                    // Handle success - maybe show a success message
-                    if (!$("#add_quantity").val()) {
-                        sweet.sweetAlertDisplay(
-                            "Product added to cart",
-                            "add successfully",
-                            "success",
-                            1000
-                        );
-                    }
-                    const { data, sumPrice } = response;
-                    cartDisplay.updateCartUI(data, sumPrice);
-                    if (window.location.pathname === "/frontend/cart") {
-                        tableCart.updateCartTable();
-                    }
+
+                    await navigator.serviceWorker.ready.then((registration) =>
+                        registration.sync.register("add-cart-sync")
+                    );
                 }
             },
             error: function (xhr, status, error) {

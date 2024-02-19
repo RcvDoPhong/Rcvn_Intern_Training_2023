@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
-use Laravel\Scout\Searchable;
+use Elastic\ScoutDriverPlus\Searchable;
 use Modules\Admin\App\Constructs\Constants;
+use Modules\Admin\database\factories\ProductFactory;
 use Modules\Admin\App\Observers\ProductObserver;
-use Modules\Admin\Database\factories\ProductFactory;
 use ONGR\ElasticsearchDSL\Aggregation\Metric\MinAggregation;
 
 class Product extends Model
@@ -69,6 +69,7 @@ class Product extends Model
             'sale_type',
             'product_description',
             'brief_description',
+            'stock',
             'status',
             'is_delete',
             'updated_by',

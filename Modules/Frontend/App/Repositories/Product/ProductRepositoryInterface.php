@@ -12,11 +12,11 @@ interface ProductRepositoryInterface extends RepositoryInterface
 {
     const MAX_PRICE = 1000000000;
 
-    public function getProductWithQuery(Request $request): LengthAwarePaginator;
+    public function getProductWithQuery(Request $request): array;
 
     public function getSingleProduct(int $id): array;
 
-    public function changeViewMode(Request $request, LengthAwarePaginator $products):string;
+    public function changeViewMode(Request $request, LengthAwarePaginator|Collection $products):string;
 
     public function getOptionsByProduct(int $id): array;
 

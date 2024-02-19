@@ -13,7 +13,7 @@ final class CreateIndexBrand implements MigrationInterface
      */
     public function up(): void
     {
-        Index::create('index-brands', function (Mapping $mapping, Settings $settings) {
+        Index::create('brands', function (Mapping $mapping, Settings $settings) {
             $mapping->unsigned_long('brand_id');
             $mapping->text('brand_name', ['boost' => 2]);
             $mapping->date('founded');
@@ -23,8 +23,6 @@ final class CreateIndexBrand implements MigrationInterface
             $mapping->date('created_at');
             $mapping->date('updated_at');
         });
-
-        Index::putAlias('index-brands', 'brands');
     }
 
     /**
@@ -32,6 +30,6 @@ final class CreateIndexBrand implements MigrationInterface
      */
     public function down(): void
     {
-        Index::dropIfExists('index-brands');
+        Index::dropIfExists('brands');
     }
 }

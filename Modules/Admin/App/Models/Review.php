@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Admin\App\Constructs\Constants;
-use Modules\Admin\Database\factories\ReviewFactory;
+use Modules\Admin\database\factories\ReviewFactory;
 
 class Review extends Model
 {
@@ -24,9 +24,9 @@ class Review extends Model
         'comment',
         'updated_by'
     ];
-    
+
     protected $primaryKey = 'review_id';
-    
+
     protected static function newFactory(): ReviewFactory
     {
         return ReviewFactory::new();

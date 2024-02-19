@@ -4,7 +4,7 @@ namespace Modules\Admin\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Admin\Database\factories\ProductImagesFactory;
+use Modules\Admin\database\factories\ProductImagesFactory;
 
 class ProductImages extends Model
 {
@@ -18,7 +18,7 @@ class ProductImages extends Model
         'image_path'
     ];
     protected $primaryKey = 'product_images_id';
-    
+
     protected static function newFactory(): ProductImagesFactory
     {
         //return ProductImagesFactory::new();

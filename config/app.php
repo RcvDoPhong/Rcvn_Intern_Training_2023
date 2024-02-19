@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 use Modules\Frontend\App\Providers\FrontendServiceProvider;
+use Modules\Admin\App\Providers\AdminServiceProvider;
 
 return [
 
@@ -157,21 +158,21 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-            /*
+        /*
              * Package Service Providers...
              */
 
-            /*
+        /*
              * Application Service Providers...
              */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-            // App\Providers\BroadcastServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         FrontendServiceProvider::class,
-        Tightenco\Ziggy\ZiggyServiceProvider::class,
-        \Matchish\ScoutElasticSearch\ElasticSearchServiceProvider::class
+        AdminServiceProvider::class,
+        Tightenco\Ziggy\ZiggyServiceProvider::class
 
 
     ])->toArray(),

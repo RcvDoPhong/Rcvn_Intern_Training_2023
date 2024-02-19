@@ -38,18 +38,18 @@ const search = {
             clearInterval(search.timeInterval);
         }, search.loopTime);
     },
-    searchElastic: function (searchInput, event) {
-        event.preventDefault();
-        const form = $('form#searchInput');
-        form.attr('action', route('frontend.home.searchElastic'));
-        form.submit();
-    },
-    searchSQL: function (searchInput, event) {
-        event.preventDefault();
-        const form = $('form#searchInput');
-        form.attr('action', route('frontend.home.searchSQL'));
-        form.submit();
-    },
+    // searchElastic: function (searchInput, event) {
+    //     event.preventDefault();
+    //     const form = $('form#searchInput');
+    //     form.attr('action', route('frontend.home.searchElastic'));
+    //     form.submit();
+    // },
+    // searchSQL: function (searchInput, event) {
+    //     event.preventDefault();
+    //     const form = $('form#searchInput');
+    //     form.attr('action', route('frontend.home.searchSQL'));
+    //     form.submit();
+    // },
     clearSearchInput: function () {
         $('div#search-suggest').addClass('d-none');
         $('div#search-suggest').empty();
