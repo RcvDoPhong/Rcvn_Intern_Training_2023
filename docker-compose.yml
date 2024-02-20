@@ -43,7 +43,7 @@ services:
     image: mysql:8.0
     container_name: intern-mysql
     ports:
-      - "3308:3306"
+      - "3309:3306"
     volumes:
       - ./src/mysql/data:/var/lib/mysql
       - ./src/mysql-master/conf.d:/etc/mysql/conf.d/
@@ -65,6 +65,34 @@ services:
       - intern-net
     depends_on:
       - mysql
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=datasearch
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - cluster.initial_master_nodes=elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+    volumes:
+      - ./elastic-src/elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - intern-net
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.17.17
+    ports:
+      - "5601:5601"
+    networks:
+      - intern-net
 
 networks:
   intern-net:

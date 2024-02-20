@@ -14,7 +14,7 @@ final class CreateIndexProduct implements MigrationInterface
      */
     public function up(): void
     {
-        Index::createIfNotExists('index-products', function (Mapping $mapping, Settings $settings) {
+        Index::createIfNotExists('products', function (Mapping $mapping, Settings $settings) {
             $mapping->long('product_id');
             $mapping->long('parent_product_id', ['null_value' => 0]);
             $mapping->text('product_name', ['boost' => 2]);
@@ -29,9 +29,9 @@ final class CreateIndexProduct implements MigrationInterface
             $mapping->unsigned_long('updated_by');
             $mapping->date('created_at');
             $mapping->date('updated_at');
-        });
 
-        Index::putAlias('index-products', 'products');
+            $mapping->nested('ratings');
+        });
     }
 
     /**
@@ -39,6 +39,6 @@ final class CreateIndexProduct implements MigrationInterface
      */
     public function down(): void
     {
-        Index::dropIfExists('index-products');
+        Index::dropIfExists('products');
     }
 }
